@@ -47,6 +47,31 @@ func TestTop10(t *testing.T) {
 	t.Run("no words in empty string", func(t *testing.T) {
 		require.Len(t, Top10(""), 0)
 	})
+	t.Run("custom table tests", func(t *testing.T) {
+		// Define a struct for the test table
+		type test struct {
+			name     string
+			input    string
+			expected []string
+		}
+		// Create a slice of test cases
+		tests := []test{
+			{"less than 10 words", "hello, how are you?", []string{"are", "hello,", "how", "you?"}},
+			{"single word", "t t t t t", []string{"t"}},
+			{"strange words", "t, t- t  -t t t,t, --- ---", []string{"---", "t", "-t", "t,", "t,t,", "t-"}},
+		}
+
+		// Iterate through test table
+		for _, tc := range tests {
+			t.Run(tc.name, func(t *testing.T) {
+				// Call the function we're testing
+				result := Top10(tc.input)
+				// Check if the result is what we expected
+				require.Equal(t, result, tc.expected)
+			})
+		}
+
+	})
 
 	t.Run("positive test", func(t *testing.T) {
 		if taskWithAsteriskIsCompleted {
@@ -79,4 +104,5 @@ func TestTop10(t *testing.T) {
 			require.Equal(t, expected, Top10(text))
 		}
 	})
+
 }
