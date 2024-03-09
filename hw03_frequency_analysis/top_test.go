@@ -70,7 +70,6 @@ func TestTop10(t *testing.T) {
 				require.Equal(t, result, tc.expected)
 			})
 		}
-
 	})
 
 	t.Run("positive test", func(t *testing.T) {
@@ -104,5 +103,4 @@ func TestTop10(t *testing.T) {
 			require.Equal(t, expected, Top10(text))
 		}
 	})
-
 }
