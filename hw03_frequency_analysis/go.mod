@@ -1,4 +1,4 @@
-module github.com/Deiklov/hw_otus/hw01_hello_otus
+module github.com/Deiklov/hw_otus/hw03_frequency_analysis
 
 go 1.19
 
