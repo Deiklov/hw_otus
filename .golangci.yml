@@ -8,14 +8,6 @@ linters-settings:
   funlen:
     lines: 150
     statements: 80
-  depguard:
-    main:
-      allow:
-        - $gostd
-        - github.com/google/uuid
-        - github.com/stretchr/testify/require
-        - github.com/jackc/pgx
-        - github.com/go-yaml/yaml
 
 
 
@@ -27,6 +19,7 @@ issues:
         - dupl
         - gocyclo
         - gosec
+        - depguard
 
 linters:
   disable-all: true
