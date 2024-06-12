@@ -9,7 +9,7 @@ type (
 type Stage func(in In) (out Out)
 
 func ExecutePipeline(in In, done In, stages ...Stage) Out {
-	var out = in
+	out := in
 
 	for _, stage := range stages {
 		out = stage(wrapWithDone(out, done))
@@ -18,7 +18,7 @@ func ExecutePipeline(in In, done In, stages ...Stage) Out {
 	return out
 }
 
-// wrapWithDone прокси в канал out+проверка отмены через done
+// wrapWithDone прокси в канал out+проверка отмены через done.
 func wrapWithDone(in In, done In) Out {
 	out := make(Bi)
 	go func() {

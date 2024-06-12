@@ -92,6 +92,7 @@ func TestPipeline(t *testing.T) {
 		require.Less(t, int64(elapsed), int64(abortDur)+int64(fault))
 	})
 }
+
 func TestAnotherStagesPipeline(t *testing.T) {
 	// helper function
 	chanToSlice := func(c In) []interface{} {
