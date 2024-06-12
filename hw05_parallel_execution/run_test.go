@@ -90,7 +90,6 @@ func TestRun(t *testing.T) {
 		require.NoError(t, err, "expected no error but got %v", err)
 		require.Equal(t, int32(tasksCount), runTasksCount, "expected all tasks to be completed")
 	})
-
 }
 
 func TestRunNoSleep(t *testing.T) {
