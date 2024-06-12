@@ -49,18 +49,19 @@ func Run(tasks []Task, n, m int) error {
 	}
 
 	go func() {
-		wg.Wait()
-		close(resultChan)
-	}()
-
-	for err := range resultChan {
-		if err != nil {
-			errCounter++
-			if errCounter >= m {
-				cancel()
+		for err := range resultChan {
+			if err != nil {
+				errCounter++
+				if errCounter >= m {
+					cancel()
+					break
+				}
 			}
 		}
-	}
+	}()
+
+	wg.Wait()
+	close(resultChan)
 
 	if errCounter >= m {
 		return ErrErrorsLimitExceeded
