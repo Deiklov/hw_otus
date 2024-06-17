@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 
+	//nolint:depguard
 	"github.com/cheggaaa/pb/v3"
 )
 
@@ -63,17 +64,13 @@ func Copy(fromPath, toPath string, offset, limit int64) error {
 
 	if limit == 0 {
 		_, err = io.Copy(output, barReader)
-		if err != nil || err != io.EOF {
-			if !errors.Is(err, io.EOF) {
-				return err
-			}
+		if err != nil && !errors.Is(err, io.EOF) {
+			return err
 		}
 	} else {
 		_, err = io.CopyN(output, barReader, limit)
-		if err != nil {
-			if !errors.Is(err, io.EOF) {
-				return err
-			}
+		if err != nil && !errors.Is(err, io.EOF) {
+			return err
 		}
 	}
 
