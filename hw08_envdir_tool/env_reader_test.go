@@ -30,12 +30,11 @@ func TestReadDir(t *testing.T) {
 	// Create files in the temp directory according to test cases.
 	for _, tc := range testCases {
 		filePath := filepath.Join(tempDir, tc.filename)
-		if err := os.WriteFile(filePath, []byte(tc.content), 0666); err != nil {
+		if err := os.WriteFile(filePath, []byte(tc.content), 0o666); err != nil {
 			t.Fatalf("Failed to write to temp file: %v", err)
 		}
 	}
 
-	// Call ReadDir.
 	env, err := ReadDir(tempDir)
 	if err != nil {
 		t.Fatalf("ReadDir returned an error: %v", err)

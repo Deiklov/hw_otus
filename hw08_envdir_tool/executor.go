@@ -14,19 +14,27 @@ func RunCmd(cmd []string, env Environment) (returnCode int) {
 	}
 
 	// Prepare the command
+	//nolint:gosec
 	command := exec.Command(cmd[0], cmd[1:]...)
 
+	// Proxy stdin, stdout, and stderr
+	command.Stdin = os.Stdin
+	command.Stdout = os.Stdout
+	command.Stderr = os.Stderr
+
 	// Set up the environment for the command
+	//nolint:prealloc
 	var newEnv []string
+	// Append the current system environment to preserve system settings
+
+	newEnv = append(newEnv, os.Environ()...)
 	for key, val := range env {
 		if val.NeedRemove {
-			// To remove an environment variable, we simply don't add it to the new environment
-			continue
+			val.Value = ""
 		}
 		newEnv = append(newEnv, key+"="+val.Value)
 	}
-	// Append the current system environment to preserve system settings
-	newEnv = append(newEnv, os.Environ()...)
+
 	command.Env = newEnv
 
 	// Run the command
